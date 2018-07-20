@@ -1,8 +1,9 @@
-var dogBarkingBuffer = null;
+var audioBuffer;
 var context;
 
 window.addEventListener('load', init, false);
 function init() {
+  //context = new (window.AudioContext || window.webkitAudioContext)();
   try {
     // Fix up for prefixing
     window.AudioContext = window.AudioContext||window.webkitAudioContext;
@@ -14,7 +15,7 @@ function init() {
 }
 
 
-function loadDogSound(url) {
+function loadKickSound(url) {
   var request = new XMLHttpRequest();
   request.open('GET', url, true);
   request.responseType = 'arraybuffer';
@@ -22,13 +23,14 @@ function loadDogSound(url) {
   // Decode asynchronously
   request.onload = function() {
     context.decodeAudioData(request.response, function(buffer) {
-      dogBarkingBuffer = buffer;
-    }, onError);
+      audioBuffer = buffer;
+    });
   }
   request.send();
 }
 
 function playSound(buffer) {
+    console.log("test");
     var source = context.createBufferSource(); // creates a sound source
     source.buffer = buffer;                    // tell the source which sound to play
     source.connect(context.destination);       // connect the source to the context's destination (the speakers)
@@ -36,6 +38,8 @@ function playSound(buffer) {
                                                // note: on older systems, may have to use deprecated noteOn(time);
   }
 
-var url = "Bass-Drum-1.wav";
-loadDogSound(url);
-playSound(dogBarkingBuffer);
+var url = "http://localhost:8080/Bass-Drum-1.wav";
+init();
+loadKickSound(url);
+var button = document.querySelector('button');
+button.onclick = function(){playSound(audioBuffer)};
