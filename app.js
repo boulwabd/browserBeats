@@ -1,4 +1,5 @@
 var audioBuffer;
+var arrayBuffer;
 var context;
 
 window.addEventListener('load', init, false);
@@ -14,23 +15,7 @@ function init() {
   }
 }
 
-
-function loadKickSound(url) {
-  var request = new XMLHttpRequest();
-  request.open('GET', url, true);
-  request.responseType = 'arraybuffer';
-
-  // Decode asynchronously
-  request.onload = function() {
-    context.decodeAudioData(request.response, function(buffer) {
-      audioBuffer = buffer;
-    });
-  }
-  request.send();
-}
-
 function playSound(buffer) {
-    console.log("test");
     var source = context.createBufferSource(); // creates a sound source
     source.buffer = buffer;                    // tell the source which sound to play
     source.connect(context.destination);       // connect the source to the context's destination (the speakers)
@@ -38,8 +23,24 @@ function playSound(buffer) {
                                                // note: on older systems, may have to use deprecated noteOn(time);
   }
 
-var url = "http://localhost:8080/Bass-Drum-1.wav";
+
+var kickFile;
+var fileReader;
+
+var fileKick = document.getElementById('fileKick');
+fileKick.addEventListener("change", function() {
+  var reader = new FileReader();
+  reader.onload = function(ev) {
+    context.decodeAudioData(ev.target.result, function(buffer) {
+      arrayBuffer = buffer;
+    });
+  };
+  reader.readAsArrayBuffer(this.files[0]);
+} , false);
+
 init();
-loadKickSound(url);
-var button = document.querySelector('button');
-button.onclick = function(){playSound(audioBuffer)};
+
+var btnKick = document.querySelector('#btnKick');
+var btnChooseKick = document.querySelector('#btnChooseKick');
+
+btnKick.onclick = function(){playSound(arrayBuffer)};
