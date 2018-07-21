@@ -8,58 +8,75 @@ body {
 
 div.flash {
   animation: flash .05s linear 0s 1;
-  
 }
 
 @keyframes flash {
   0% {border-color: #ead5e6;}
-  50% {border-color: black;}
+  50% {border-color: rgb(75, 72, 72);}
   100% {border-color: #ead5e6;}
 
 }
-@keyframes myfirst {
-  0%   {background-color:red; left:0px; top:0px;}
-  25%  {background-color:yellow; left:200px; top:0px;}
-  50%  {background-color:blue; left:200px; top:200px;}
-  75%  {background-color:green; left:0px; top:200px;}
-  100% {background-color:red; left:0px; top:0px;}
-}
+
 .drop-area {
-    border: 2px solid #ead5e6;
-    border-radius: 5px;
-    width: 100px;
-    height: 100px;
-    font-family: sans-serif;
-    margin: 50px 25px;
-    padding: 20px;
-    background-color: #ead5e6;
-    float: left;
-    transition: .1s;
-    
-  }
-  .drop-area.highlight {
-    
-    filter: brightness(90%);
-  }
+  border: 2px solid #ead5e6;
+  border-radius: 5px;
+  width: 100px;
+  height: 100px;
+  font-family: sans-serif;
+  margin: 50px 25px;
+  padding: 20px;
+  background-color: #ead5e6;
+  float: left;
+  transition: .1s;  
+}
+
+.drop-area.highlight {
+  filter: brightness(90%);
+}
+
+.drop-area:hover {
+  background: rgba(234, 213, 230, 0.7);
+  border-color: rgba(234, 213, 230, 0.1);
+}
+
+.drop-area:hover label{
+  visibility: visible;
+  opacity: 1;
+}
   
-  p {
-    margin-top: 0;
-  }
-  .my-form {
-    margin-bottom: 10px;
-  }
-  .button {
-    display: inline-block;
-    padding: 10px;
-    background: #ccc;
-    cursor: pointer;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-  }
-  .button:hover {
-    background: #ddd;
-  }
-  #fileElem {
-    display: none;
-  }
+p {
+  margin-top: 0;
+}
+
+.my-form {
+  margin-bottom: 10px;
+}
+
+.button {
+  padding: 10px;
+  background: rgb(144, 144, 144);
+  cursor: pointer;
+  border-radius: 50px;
+  border: 1px solid rgb(144, 144, 144);
+  display: inline-block;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s, opacity 0.1s linear;
+}
+
+div.select.drop-area  {
+  background: rgba(234, 213, 230, 0.7);
+  border-color: rgba(234, 213, 230, 0.1);
+}
+
+label.select {
+  background-color: white;
+  border-color: white;
+  visibility: visible;
+  opacity: 1;
+}
+
+#fileElem {
+  display: none;
+}
   

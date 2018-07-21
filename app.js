@@ -13,23 +13,51 @@ function init() {
   }
 }
 
-function Sampler(drpArea, buffer) {
-  
+//sampler module
+function Sampler(keyBtn, drpArea, buffer) {
   this.dropArea = drpArea;
   this.sampleBuffer = buffer;
+  this.keyBindBtn = keyBtn;
 
-  dropArea.onclick = function () { 
-    try {
-      playSound(sampleBuffer)
+  let keyBindToggle = 0;
+  let keyBind;
+
+  //Button to assign keybinding
+  keyBindBtn.onclick = function () {
+    keyBindToggle = 1;
+    dropArea.classList.add('select');
+    this.classList.add('select');
+
+    if (keyBindToggle) {
+      document.addEventListener("keydown", function keyDownInput(e) {
+        keyBind = e.keyCode;
+        keyBindToggle = 0;
+        dropArea.classList.remove('select');
+        keyBindBtn.classList.remove('select');
+        document.removeEventListener("keydown", keyDownInput);
+      });
     }
-    catch (error) {
-      alert('Drag a sample onto the pad!');
+  }
+
+  //listener for key press to play sample
+  document.onkeydown = function(ev) {
+    if (keyBindToggle == 0) {
+      if (ev.keyCode == keyBind) {
+        try {
+          playSound(sampleBuffer)
+        }
+        catch (error) {
+          alert('Drag a sample onto the pad!');
+        }
+        dropArea.classList.add("flash");
+        setTimeout(function () { dropArea.classList.remove("flash") }, 100);
+      }
     }
-    dropArea.classList.add("flash");
-    setTimeout(function() {dropArea.classList.remove("flash")},100);
   };
 
-  dropArea.addEventListener('drop', handleDrop, false);
+  //drop Area code
+  //adding listeners
+  dropArea.addEventListener('drop', handleDrop, false); //handles the actual file drop
 
   ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
     dropArea.addEventListener(eventName, preventDefaults, false);
@@ -42,6 +70,7 @@ function Sampler(drpArea, buffer) {
     dropArea.addEventListener(eventName, unhighlight, false);
   });
 
+  //functions for css modifying
   function highlight(e) {
     dropArea.classList.add('highlight');
   }
@@ -55,6 +84,7 @@ function Sampler(drpArea, buffer) {
     e.stopPropagation();
   }
 
+  //drop handler to get file
   function handleDrop(e) {
     let dt = e.dataTransfer;
     let files = dt.files;
@@ -62,6 +92,7 @@ function Sampler(drpArea, buffer) {
     handleFiles(files);
   }
 
+  //reads files, decodes them, adds to buffer
   function handleFiles(fileList) {
     let reader = new FileReader();
     reader.onload = function (ev) {
@@ -72,19 +103,19 @@ function Sampler(drpArea, buffer) {
     reader.readAsArrayBuffer(fileList[0]);
   }
 
+  //plays the sound from passed buffer
   function playSound(buffer) {
     var source = context.createBufferSource(); // creates a sound source
     source.buffer = buffer;                    // tell the source which sound to play
     source.connect(context.destination);       // connect the source to the context's destination (the speakers)
     source.start(0);                           // play the source now
-    // note: on older systems, may have to use deprecated noteOn(time);
   }
 }
 
 init();
 
-var playButton = document.getElementById('btn1')
 var dropArea = document.getElementById('drop-area1');
-var audioBuffer = 0;
+var keyBindBtn = document.getElementById('keyBindBtn');
+var audioBuffer;
 
-var sampler1 = new Sampler(playButton, dropArea, audioBuffer);
+var sampler1 = new Sampler(keyBindBtn, dropArea, audioBuffer);
