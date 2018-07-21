@@ -34,6 +34,7 @@ function Sampler(keyBtn, drpArea, buffer) {
         keyBindToggle = 0;
         dropArea.classList.remove('select');
         keyBindBtn.classList.remove('select');
+        keyBindBtn.innerHTML = String.fromCharCode(e.keyCode);
         document.removeEventListener("keydown", keyDownInput);
       });
     }

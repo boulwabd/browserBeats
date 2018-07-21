@@ -28,6 +28,7 @@ div.flash {
   background-color: #ead5e6;
   float: left;
   transition: .1s;  
+  text-align: center;
 }
 
 .drop-area.highlight {
@@ -53,15 +54,18 @@ p {
 }
 
 .button {
-  padding: 10px;
-  background: rgb(144, 144, 144);
+  color: rgb(160, 160, 160);
+  font-size: 50px;
   cursor: pointer;
-  border-radius: 50px;
-  border: 1px solid rgb(144, 144, 144);
+  margin: auto;
   display: inline-block;
   visibility: hidden;
   opacity: 0;
   transition: visibility 0s, opacity 0.1s linear;
+}
+
+.button:hover {
+  color: white;
 }
 
 div.select.drop-area  {
@@ -70,8 +74,7 @@ div.select.drop-area  {
 }
 
 label.select {
-  background-color: white;
-  border-color: white;
+  color: white;
   visibility: visible;
   opacity: 1;
 }
