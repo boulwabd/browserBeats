@@ -13,12 +13,22 @@ function init() {
   }
 }
 
-function Sampler(pB, dA, sB) {
-  this.playButton = pB;
-  this.dropArea = dA;
-  this.sampleBuffer = sB;
+function Sampler(drpArea, buffer) {
+  
+  this.dropArea = drpArea;
+  this.sampleBuffer = buffer;
 
-  playButton.onclick = function () { playSound(sampleBuffer) };
+  dropArea.onclick = function () { 
+    try {
+      playSound(sampleBuffer)
+    }
+    catch (error) {
+      alert('Drag a sample onto the pad!');
+    }
+    dropArea.classList.add("flash");
+    setTimeout(function() {dropArea.classList.remove("flash")},100);
+  };
+
   dropArea.addEventListener('drop', handleDrop, false);
 
   ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
@@ -74,7 +84,7 @@ function Sampler(pB, dA, sB) {
 init();
 
 var playButton = document.getElementById('btn1')
-var dropArea = document.getElementById('drop-area');
-var audioBuffer;
+var dropArea = document.getElementById('drop-area1');
+var audioBuffer = 0;
 
 var sampler1 = new Sampler(playButton, dropArea, audioBuffer);

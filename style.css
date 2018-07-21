@@ -1,28 +1,52 @@
-#drop-area {
-    border: 2px dashed #ccc;
-    border-radius: 20px;
-    width: 480px;
+#module {
+  padding: 50px;
+}
+
+body {
+  background-color: #9c88ff;
+}
+
+div.flash {
+  animation: flash .05s linear 0s 1;
+  
+}
+
+@keyframes flash {
+  0% {border-color: #ead5e6;}
+  50% {border-color: black;}
+  100% {border-color: #ead5e6;}
+
+}
+@keyframes myfirst {
+  0%   {background-color:red; left:0px; top:0px;}
+  25%  {background-color:yellow; left:200px; top:0px;}
+  50%  {background-color:blue; left:200px; top:200px;}
+  75%  {background-color:green; left:0px; top:200px;}
+  100% {background-color:red; left:0px; top:0px;}
+}
+.drop-area {
+    border: 2px solid #ead5e6;
+    border-radius: 5px;
+    width: 100px;
+    height: 100px;
     font-family: sans-serif;
-    margin: 100px auto;
+    margin: 50px 25px;
     padding: 20px;
+    background-color: #ead5e6;
+    float: left;
+    transition: .1s;
+    
   }
-  #drop-area.highlight {
-    border-color: purple;
+  .drop-area.highlight {
+    
+    filter: brightness(90%);
   }
+  
   p {
     margin-top: 0;
   }
   .my-form {
     margin-bottom: 10px;
-  }
-  #gallery {
-    margin-top: 10px;
-  }
-  #gallery img {
-    width: 150px;
-    margin-bottom: 10px;
-    margin-right: 10px;
-    vertical-align: middle;
   }
   .button {
     display: inline-block;
