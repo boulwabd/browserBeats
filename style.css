@@ -36,7 +36,7 @@ div.flash {
 }
 
 .drop-area:hover {
-  background: rgba(234, 213, 230, 0.7);
+  background: rgba(234, 213, 230, 0.8);
   border-color: rgba(234, 213, 230, 0.1);
 }
 
@@ -65,16 +65,21 @@ p {
 }
 
 .button:hover {
-  color: white;
+  color: rgba(255, 255, 255, 0.5);
 }
 
 div.select.drop-area  {
-  background: rgba(234, 213, 230, 0.7);
+  background: rgba(234, 213, 230, 0.8);
   border-color: rgba(234, 213, 230, 0.1);
 }
 
 label.select {
-  color: white;
+  color: rgba(255, 255, 255);
+  visibility: visible;
+  opacity: 1;
+}
+label.select:hover {
+  color: rgba(255, 255, 255);
   visibility: visible;
   opacity: 1;
 }

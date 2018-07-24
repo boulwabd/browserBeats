@@ -15,12 +15,12 @@ function init() {
 
 //sampler module
 function Sampler(keyBtn, drpArea, buffer) {
-  this.dropArea = drpArea;
-  this.sampleBuffer = buffer;
-  this.keyBindBtn = keyBtn;
+  var dropArea = drpArea;
+  var sampleBuffer = buffer;
+  var keyBindBtn = keyBtn;
 
-  let keyBindToggle = 0;
-  let keyBind;
+  var keyBindToggle = 0;
+  var keyBind;
 
   //Button to assign keybinding
   keyBindBtn.onclick = function () {
@@ -41,9 +41,9 @@ function Sampler(keyBtn, drpArea, buffer) {
   }
 
   //listener for key press to play sample
-  document.onkeydown = function(ev) {
-    if (keyBindToggle == 0) {
-      if (ev.keyCode == keyBind) {
+  if (keyBindToggle == 0) {
+    document.addEventListener("keydown", function (e) {
+      if (e.keyCode == keyBind) {
         try {
           playSound(sampleBuffer)
         }
@@ -53,8 +53,9 @@ function Sampler(keyBtn, drpArea, buffer) {
         dropArea.classList.add("flash");
         setTimeout(function () { dropArea.classList.remove("flash") }, 100);
       }
-    }
-  };
+    });
+  }
+
 
   //drop Area code
   //adding listeners
@@ -115,8 +116,13 @@ function Sampler(keyBtn, drpArea, buffer) {
 
 init();
 
-var dropArea = document.getElementById('drop-area1');
-var keyBindBtn = document.getElementById('keyBindBtn');
-var audioBuffer;
+var dropArea1 = document.getElementById('drop-area1');
+var keyBindBtn1 = document.getElementById('keyBindBtn1');
+var audioBuffer1;
 
-var sampler1 = new Sampler(keyBindBtn, dropArea, audioBuffer);
+var dropArea2 = document.getElementById('drop-area2');
+var keyBindBtn2 = document.getElementById('keyBindBtn2');
+var audioBuffer2;
+
+var sampler1 = new Sampler(keyBindBtn1, dropArea1, audioBuffer1);
+var sampler2 = new Sampler(keyBindBtn2, dropArea2, audioBuffer2);
