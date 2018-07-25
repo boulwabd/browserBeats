@@ -31,6 +31,26 @@ div.flash {
   text-align: center;
 }
 
+.new-button {
+  background: rgba(234, 213, 230, 0.2);
+  border: 2px dashed rgba(255, 255, 255, 0.5); /*rgba(234, 213, 230, 0.5);*/
+  border-radius: 5px;
+  width: 100px;
+  height: 100px;
+  font-family: sans-serif;
+  margin: 50px 25px;
+  padding: 20px;
+  float: left;
+  transition: .1s;  
+  text-align: center;
+  cursor: pointer;
+}
+
+.new-button:hover {
+  background: rgba(234, 213, 230, 0.5);
+  border: 2px dashed rgba(255, 255, 255);
+}
+
 .drop-area.highlight {
   filter: brightness(90%);
 }

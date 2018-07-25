@@ -1,4 +1,6 @@
 var context;
+var padCount = 0 ;
+var pads;
 
 window.addEventListener('load', init, false);
 function init() {
@@ -7,6 +9,7 @@ function init() {
     // Fix up for prefixing
     window.AudioContext = window.AudioContext || window.webkitAudioContext;
     context = new AudioContext();
+    pads = [new Sampler(0)];
   }
   catch (e) {
     alert('Web Audio API is not supported in this browser');
@@ -14,10 +17,10 @@ function init() {
 }
 
 //sampler module
-function Sampler(keyBtn, drpArea, buffer) {
-  var dropArea = drpArea;
-  var sampleBuffer = buffer;
-  var keyBindBtn = keyBtn;
+function Sampler(padID) {
+  var dropArea = document.getElementById('drop-area' + padID);
+  var keyBindBtn = document.getElementById('keyBindBtn' + padID);
+  var sampleBuffer;
 
   var keyBindToggle = 0;
   var keyBind;
@@ -116,13 +119,25 @@ function Sampler(keyBtn, drpArea, buffer) {
 
 init();
 
-var dropArea1 = document.getElementById('drop-area1');
-var keyBindBtn1 = document.getElementById('keyBindBtn1');
-var audioBuffer1;
+//initializes parent container and newBtn for adding pads
+var moduleContainer = document.getElementById('moduleContainer');
+var newBtn = document.getElementById('new-btn');
 
-var dropArea2 = document.getElementById('drop-area2');
-var keyBindBtn2 = document.getElementById('keyBindBtn2');
-var audioBuffer2;
+//listener for adding pads with incremental ids and correct classes
+newBtn.addEventListener("click", function() {
+  padCount ++;
+  var newPad = document.createElement("div");
+  newPad.classList.add('drop-area');
+  newPad.id = "drop-area" + padCount;
+  moduleContainer.insertBefore(newPad, newBtn);
+  var newLabel = document.createElement("label");
+  newLabel.classList.add('button');
+  newLabel.id = "keyBindBtn" + padCount;
+  newLabel.innerHTML = "N/A";
+  newPad.appendChild(newLabel);
+  pads[padCount] = new Sampler(padCount);
+});
 
-var sampler1 = new Sampler(keyBindBtn1, dropArea1, audioBuffer1);
-var sampler2 = new Sampler(keyBindBtn2, dropArea2, audioBuffer2);
+//initializes pads array and adds first pad
+
+init();
